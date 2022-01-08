@@ -60,9 +60,7 @@ class ImageUpload extends BaseController {
                 array_push($pictures, $fn);
             }
         }
-        foreach ($pictures as $fn) {
-            echo '<p>'.$fn.'</p>';
-        }
+        return implode(';',$pictures);
     }
 
 
