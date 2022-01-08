@@ -418,9 +418,9 @@ class Logger implements LoggerInterface
      * Cleans the paths of filenames by replacing APPPATH, SYSTEMPATH, FCPATH
      * with the actual var. i.e.
      *
-     *  /var/www/site/app/Controllers/Home.php
+     *  /var/www/site/app/Controllers/Detection.php
      *      becomes:
-     *  APPPATH/Controllers/Home.php
+     *  APPPATH/Controllers/Detection.php
      */
     protected function cleanFileNames(string $file): string
     {

@@ -10,6 +10,6 @@
         <a class="nav-link active" aria-current="page" href="upload">Upload</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="detect">Detection</a>
+        <a class="nav-link" href="detection">Detection</a>
     </li>
 </ul>

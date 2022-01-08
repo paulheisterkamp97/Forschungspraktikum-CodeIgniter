@@ -32,7 +32,7 @@ use Throwable;
  *       ->withResponse($response)
  *       ->withURI($uri)
  *       ->withBody($body)
- *       ->controller('App\Controllers\Home')
+ *       ->controller('App\Controllers\Detection')
  *       ->execute('methodName');
  *
  * @deprecated Use ControllerTestTrait instead

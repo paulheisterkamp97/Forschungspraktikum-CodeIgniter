@@ -39,7 +39,7 @@ class RouteCollection implements RouteCollectionInterface
      *
      * @var string
      */
-    protected $defaultController = 'Home';
+    protected $defaultController = 'Detection';
 
     /**
      * The name of the default method to use

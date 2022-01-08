@@ -2,13 +2,12 @@
 
 namespace App\Controllers;
 
-class Home extends BaseController
+class Detection extends BaseController
 {
-    public function index($page = 'upload')
+    public function index()
     {
-
         echo view('templates/header');
-        echo view('pages/'.$page);
+        echo view('pages/detect');
         echo view('templates/footer');
     }
 }

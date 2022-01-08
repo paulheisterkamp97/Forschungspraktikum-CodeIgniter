@@ -37,7 +37,7 @@ trait FeatureTestTrait
      *
      * Example routes:
      * [
-     *    ['get', 'home', 'Home::index']
+     *    ['get', 'home', 'Detection::index']
      * ]
      *
      * @param array $routes

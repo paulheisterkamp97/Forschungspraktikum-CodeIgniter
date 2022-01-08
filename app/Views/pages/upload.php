@@ -1,22 +1,28 @@
 <div class="container-lg bg-light p-5">
-    <h1>
+    <h1 class="p-5">
         Upload center
     </h1>
-    <p>
-        in this section pictures can be uploaded to the server to perform Image detection
-    </p>
-    <div class="card">
-        <div class="card-header">
-            <h5>File Upload</h5>
-        </div>
-        <div class="card-block p-3">
-            <form action="#" class="dropzone dz-clickable">
-                <div class="dz-default dz-message"><span>Drop files here to upload</span></div>
-            </form>
-            <div class="text-center m-t-20">
-                <button class="btn btn-primary">Upload Now</button>
+
+    <div>
+        <h3>Select an image from your computer and upload it to the cloud</h3>
+        <?php if (isset($errors)): ?>
+            <div class="text-danger">
+                <?=  $errors->listErrors()?>
             </div>
-        </div>
+        <?php endif; ?>
+        <form method="post" action="<?=base_url('store-image')?>" enctype="multipart/form-data">
+            <div class="form-group mb-4">
+                <label for="image">Select Picture to upload</label>
+                <input type="file" class="form-control" id="image" accept="image/jpeg,image/png" name="image" size="33" />
+            </div>
+            <div class="form-group mb-4">
+                <label for="filename">Specify filename</label>
+                <input type="text" id="filename"  class="form-control" name="filename"/>
+            </div>
+            <div class="form-group mb-4">
+                <button type="submit" class="btn btn-primary" >Upload Image</button>
+            </div>
+        </form>
     </div>
 </div>
 
