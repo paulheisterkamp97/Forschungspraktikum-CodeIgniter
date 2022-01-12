@@ -36,6 +36,7 @@ $routes->get('detection', 'Detection::index');
 $routes->get('upload','ImageUpload');
 $routes->get('list-files','ImageUpload::list_uploaded');
 $routes->post('store-image','ImageUpload::store');
+$routes->get('get-image/(:num)','Detection::getpicture/$1');
 
 
 /*
