@@ -46,7 +46,7 @@ class ImageUpload extends BaseController {
 
             // Database operation ----------------------------------------------
 
-            $db = db_connect('default',false);
+            $db = db_connect();
             $builder = $db->table('pictures');
 
             $db_data = [

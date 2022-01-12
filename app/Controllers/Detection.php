@@ -2,6 +2,9 @@
 
 namespace App\Controllers;
 
+
+use Config\Paths;
+
 class Detection extends BaseController
 {
     public function index()
@@ -12,12 +15,15 @@ class Detection extends BaseController
     }
 
     public function getpicture($id){
-        $db = db_connect('default',false);
+        helper('path');
+        $db = db_connect();
         $builder = $db->table('pictures');
-        return $id;
-        $builder->where('id' ,$id);
+        $builder->select('path');
+        $query = $builder->getWhere(['id'=> $id]);
+        print_r($query);
 
-        header('Content-Type: image/jpeg');
-        readfile($img);
+
+        //header('Content-Type: image/jpeg');
+        //return WRITEPATH.'uploads'.DIRECTORY_SEPARATOR.print_r($query);
     }
 }
