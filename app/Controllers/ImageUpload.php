@@ -41,6 +41,7 @@ class ImageUpload extends BaseController {
         if (! $img->hasMoved()) {
 
             $path = $img->store('in', $this->request->getVar('filename').'.jpg');
+            $path = str_replace('/',DIRECTORY_SEPARATOR,$path);
 
             $current_dir = getcwd();
 

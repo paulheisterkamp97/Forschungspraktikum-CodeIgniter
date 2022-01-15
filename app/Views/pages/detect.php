@@ -1,10 +1,14 @@
 <div class="container-fluid m-2">
     <div class="row">
         <div class="col-2">
-            <ul class="list-group">
-                <li class="list-group-item active" aria-current="true">bild1.jpg</li>
-                <li class="list-group-item">bild2.jpg</li>
-                <li class="list-group-item">bild3.jpg</li>
+            <ul class="list-group" id="picselector">
+                <?php if (isset($pics)):
+                    foreach ($pics as $p):?>
+                        <button class="list-group-item" id="<?php echo $p->id?>" picid=<?php echo $p->id?> ><?php echo $p->name?></button>
+                <?php
+                    endforeach;
+                endif;
+                ?>
             </ul>
         </div>
         <div class="col-6">
