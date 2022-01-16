@@ -12,7 +12,7 @@
             </ul>
         </div>
         <div class="col-6">
-            <div id="canvas"></div>
+            <div  id="canvas"></div>
 
         </div>
         <div class="col-4">
@@ -25,7 +25,7 @@
             </button>
             <hr></hr>
             <div class="d-flex justify-content-evenly">
-                <button type="button" class="btn btn-success">
+                <button type="button" class="btn btn-success" id="createInvoice">
                     Create Invoice
                 </button>
                 <div class="form-check pt-2">
