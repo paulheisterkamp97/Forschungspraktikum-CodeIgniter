@@ -126,6 +126,15 @@ function collectData(){
 	}
 	console.log(wrapper);
 
+	$.ajax({
+		type: "POST",
+		url: '/update-detection',
+		data: wrapper,
+		success : function(data) {
+			window.open("/get-pdf/"+wrapper['pictureId']);
+		}
+	});
+
 }
 
 

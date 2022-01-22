@@ -2,8 +2,8 @@
 
 namespace App\Controllers;
 use App\Models\DetectionModel;
+use App\Helpers\PDFTemplate;
 
-use Config\Paths;
 
 class Detection extends BaseController
 {
@@ -47,7 +47,25 @@ class Detection extends BaseController
         return json_encode($result);
     }
 
-    public function setDetection(){
+    public function updateDetection(){
+        $data = $this->request->getVar('detection');
+        $picid = $this->request->getVar('pictureId');
+        $this->modell->updateHitboxes($picid,$data);
 
+        if($this->request->getVar('saveTrain')){
+
+
+
+
+        }
+
+    }
+
+    public function createPDF($id){
+        $this->response->setContentType('application/pdf');
+        $template = new PDFTemplate();
+        $partlist = $this->modell->getPartList($id);
+        $pdf = $template->createPdf($partlist);
+        $pdf->Output('recite.pdf', 'I');
     }
 }

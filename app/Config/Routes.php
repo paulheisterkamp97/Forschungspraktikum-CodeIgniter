@@ -38,7 +38,8 @@ $routes->post('store-image','ImageUpload::store');
 $routes->get('get-image/(:num)','Detection::getPicture/$1');
 $routes->get('get-detection/(:num)','Detection::getDetection/$1');
 $routes->get('get-classes','Detection::getClasses');
-
+$routes->get('get-pdf/(:num)','Detection::createPDF/$1');
+$routes->post('update-detection','Detection::updateDetection');
 
 /*
  * --------------------------------------------------------------------

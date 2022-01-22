@@ -43,6 +43,17 @@ class DetectionModel
         return $result;
     }
 
+    public function getPartList($id){
+        $builder = $this->db->table('classes');
+        $builder->select('classes.name,classes.price');
+        $builder->groupBy('classes.id');
+        $builder->selectCount('classes.id','count');
+        $builder->join('hitboxes', 'hitboxes.class = classes.id');
+        $builder->where('hitboxes.id',$id);
+        return $builder->get()->getResult();
+
+    }
+
     public function deletePicture($id){
         $builder = $this->db->table('pictures');
         $builder->where('id',$id);
@@ -53,6 +64,22 @@ class DetectionModel
         $builder = $this->db->table('classes');
         $builder->select('*');
         return $builder->get()->getResult();
+    }
+
+    public function updateHitboxes($id,$hitboxes){
+        $builder = $this->db->table('hitboxes');
+        $builder->where('id',$id);
+        $builder->delete();
+
+        $arr = [];
+
+        foreach ($hitboxes as $h){
+            $h['id'] = $id;
+            array_push($arr,$h);
+        }
+
+        $builder = $this->db->table('hitboxes');
+        $builder->insertBatch($arr);
     }
 
 }
