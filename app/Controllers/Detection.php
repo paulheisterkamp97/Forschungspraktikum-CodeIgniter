@@ -23,7 +23,7 @@ class Detection extends BaseController
         echo view('templates/footer');
     }
 
-    public function getpicture($id){
+    public function getPicture($id){
         helper('path');
 
         $pic_path =$this->modell->getPicturePath($id);
@@ -37,8 +37,17 @@ class Detection extends BaseController
         echo $contents;
     }
 
-    public function getdetection($id){
+    public function getDetection($id){
         $result = $this->modell->getDetection($id);
         return json_encode($result);
+    }
+
+    public function getClasses(){
+        $result = $this->modell->getClasses();
+        return json_encode($result);
+    }
+
+    public function setDetection(){
+
     }
 }

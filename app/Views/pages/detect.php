@@ -29,7 +29,7 @@
                     Create Invoice
                 </button>
                 <div class="form-check pt-2">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <input class="form-check-input" type="checkbox" id="rboxTrain">
                     <label class="form-check-label" for="flexCheckDefault">
                         Save as training data
                     </label>

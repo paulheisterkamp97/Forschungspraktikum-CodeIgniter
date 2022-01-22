@@ -2,6 +2,7 @@ let img = null;
 let width,height;
 let bbList;
 let canvas
+let pictureId;
 
 
 //p5 Standart Funitons -------------------------------------------------------------------
@@ -20,7 +21,23 @@ function setup(){
 	document.getElementById("addBox").addEventListener("click", addBoxListener);
 	document.getElementById("createInvoice").addEventListener("click", collectData);
 
-	bbList = new BBList();
+	//get classes
+	var classes = [];
+	$.ajax({
+		dataType:"json",
+		type: "GET",
+		url: "/get-classes",
+		async: false,
+		success : function(data) {
+			for (let i = 0; i < data.length; i++) {
+				var id = data[i]['id'];
+				classes[id] = data[i]['name'];
+			}
+		}
+	});
+
+
+	bbList = new BBList(classes);
 
 	const pictureSelectors = document.getElementById('picselector').childNodes;
 
@@ -63,7 +80,7 @@ function selectPictureListener(){
 	document.querySelector('#partlist').innerHTML = "";
 
 	//get id and set selected active
-	picid = this.getAttribute('picid');
+	pictureId = this.getAttribute('picid');
 
 	const pictureSelectors = document.getElementById('picselector').querySelectorAll("button");
 	for (let i = 0; i < pictureSelectors.length; i++)
@@ -74,9 +91,9 @@ function selectPictureListener(){
 
 
 	//load resources
-	img = loadImage('/get-image/'+picid,windowResized);
+	img = loadImage('/get-image/'+pictureId,windowResized);
 
-	$.get("/get-detection/"+picid,function (data,status) {
+	$.get("/get-detection/"+pictureId,function (data,status) {
 		if (status == "success"){
 			for (let i = 0; i < data.length; i++) {
 				e = data[i];
@@ -100,7 +117,14 @@ function collectData(){
 		delete data[i].color;
 		delete data[i].id;
 	}
-	console.log(data);
+	var train = document.getElementById('rboxTrain');
+
+	var wrapper = {
+		'detection' : data,
+		'pictureId' : pictureId,
+		'saveTrain' : train.checked
+	}
+	console.log(wrapper);
 
 }
 
@@ -125,7 +149,8 @@ class BBList{
 	static nameSize = 18;
 	static classes = ["Muendungsabschluss","Regenhaube","Dachdurchfuehrung_gerade","Dachdurchfuehrung_geneigt","Wandhalterung","Wanddurchfuehrung","Reinigungsoeffnung","Bodenmontage","Abschluss_Konsole"];
 
-	constructor(){
+	constructor(classes){
+		this.classes = classes;
 		this.bboxes = []
 		this.selectedBox = null;
 		this.selectedAction = "pos";

@@ -49,4 +49,10 @@ class DetectionModel
         $builder->delete();
     }
 
+    public function getClasses(){
+        $builder = $this->db->table('classes');
+        $builder->select('*');
+        return $builder->get()->getResult();
+    }
+
 }
