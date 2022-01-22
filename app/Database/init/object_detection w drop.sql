@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 12, 2022 at 01:34 PM
+-- Generation Time: Jan 22, 2022 at 12:21 PM
 -- Server version: 10.4.22-MariaDB
--- PHP Version: 8.1.1
+-- PHP Version: 8.0.14
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -26,19 +26,51 @@ USE `object_detection`;
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `classes`
+--
+
+DROP TABLE IF EXISTS `classes`;
+CREATE TABLE IF NOT EXISTS `classes` (
+    `id` int(11) NOT NULL,
+    `name` varchar(100) NOT NULL,
+    `price` decimal(10,2) NOT NULL,
+    PRIMARY KEY (`id`)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `classes`
+--
+
+INSERT INTO `classes` (`id`, `name`, `price`) VALUES
+(0, 'Muendungsabschluss', '99.00'),
+(1, 'Regenhaube', '129.99'),
+(2, 'Dachdurchfuehrung_gerade', '399.99'),
+(3, 'Dachdurchfuehrung_geneigt', '459.99'),
+(4, 'Wandhalterung', '29.99'),
+(5, 'Wanddurchfuehrung', '429.99'),
+(6, 'Reinigungsoeffnung', '89.99'),
+(7, 'Bodenmontage', '239.99'),
+(8, 'Abschluss_Konsole', '219.99');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `hitboxes`
 --
 
 DROP TABLE IF EXISTS `hitboxes`;
-CREATE TABLE `hitboxes` (
-  `box_id` int(11) NOT NULL,
-  `id` int(11) NOT NULL,
-  `class` int(11) NOT NULL DEFAULT 0,
-  `x` float NOT NULL DEFAULT 0,
-  `y` float NOT NULL DEFAULT 0,
-  `w` float NOT NULL DEFAULT 0,
-  `h` float NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE IF NOT EXISTS `hitboxes` (
+    `box_id` int(11) NOT NULL AUTO_INCREMENT,
+    `id` int(11) NOT NULL,
+    `class` int(11) NOT NULL DEFAULT 0,
+    `x` float NOT NULL DEFAULT 0,
+    `y` float NOT NULL DEFAULT 0,
+    `w` float NOT NULL DEFAULT 0,
+    `h` float NOT NULL DEFAULT 0,
+    PRIMARY KEY (`box_id`),
+    KEY `id` (`id`),
+    KEY `class` (`class`)
+    ) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -47,44 +79,12 @@ CREATE TABLE `hitboxes` (
 --
 
 DROP TABLE IF EXISTS `pictures`;
-CREATE TABLE `pictures` (
-  `id` int(11) NOT NULL,
-  `name` varchar(30) NOT NULL,
-  `path` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `hitboxes`
---
-ALTER TABLE `hitboxes`
-  ADD PRIMARY KEY (`box_id`),
-  ADD KEY `id` (`id`);
-
---
--- Indexes for table `pictures`
---
-ALTER TABLE `pictures`
-  ADD PRIMARY KEY (`id`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `hitboxes`
---
-ALTER TABLE `hitboxes`
-  MODIFY `box_id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `pictures`
---
-ALTER TABLE `pictures`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+CREATE TABLE IF NOT EXISTS `pictures` (
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `name` varchar(30) NOT NULL,
+    `path` varchar(100) NOT NULL,
+    PRIMARY KEY (`id`)
+    ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Constraints for dumped tables
@@ -94,8 +94,10 @@ ALTER TABLE `pictures`
 -- Constraints for table `hitboxes`
 --
 ALTER TABLE `hitboxes`
+    ADD CONSTRAINT `cl_fk` FOREIGN KEY (`class`) REFERENCES `classes` (`id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `hb_fk` FOREIGN KEY (`id`) REFERENCES `pictures` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
+
 
 GRANT USAGE ON *.* TO `ci`@`%`;
 

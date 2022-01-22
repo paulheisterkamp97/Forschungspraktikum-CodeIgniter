@@ -1,7 +1,14 @@
 <?php
 namespace App\Controllers;
 use CodeIgniter\Files\File;
+use App\Models\DetectionModel;
 class ImageUpload extends BaseController {
+
+    protected  $modell;
+    public function __construct()
+    {
+        $this->modell = new DetectionModel();
+    }
 
     public function index() {
         echo view('templates/header');
@@ -47,16 +54,7 @@ class ImageUpload extends BaseController {
 
             // Database operation ----------------------------------------------
 
-            $db = db_connect();
-            $builder = $db->table('pictures');
-
-            $db_data = [
-                'name'=>$this->request->getVar('filename'),
-                'path'=>$path,
-            ];
-            $builder->insert($db_data);
-            $pic_id = $db->insertID();
-            $db->close();
+            $pic_id = $this->modell->addPicture($this->request->getVar('filename'),$path);
 
             // Python trigger --------------------------------------------------
             chdir('..'.DIRECTORY_SEPARATOR.'app'.DIRECTORY_SEPARATOR.'Helpers'.DIRECTORY_SEPARATOR.'python'.DIRECTORY_SEPARATOR.'script');
@@ -76,26 +74,4 @@ class ImageUpload extends BaseController {
             return redirect()->to('upload');
         }
     }
-
-    public function list_uploaded()
-    {
-        $filenames = scandir('../writable/uploads/out');
-        $pictures = [];
-        foreach ($filenames as $fn) {
-            if( str_ends_with($fn,'.json') ) {
-                array_push($pictures, $fn);
-            }
-        }
-        return json_encode($pictures);
-    }
-    public function get_image($filename = null){
-        //header('Content-Type: image/jpeg');
-        return HOMEPATH;
-        readfile(HOMEPATH,);
-    }
-    public function get_detection(){
-
-    }
-
-
 }

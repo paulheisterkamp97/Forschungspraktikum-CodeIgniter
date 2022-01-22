@@ -1,18 +1,23 @@
 <?php
 
 namespace App\Controllers;
-
+use App\Models\DetectionModel;
 
 use Config\Paths;
 
 class Detection extends BaseController
 {
+    protected  $modell;
+    public function __construct()
+    {
+        $this->modell = new DetectionModel();
+    }
+
     public function index()
     {
-        $db = db_connect();
-        $builder = $db->table('pictures');
-        $result = $builder->get()->getResult();
+        $result = $this->modell->getProcessedPictures();
         $data = ['pics' => $result];
+
         echo view('templates/header');
         echo view('pages/detect',$data);
         echo view('templates/footer');
@@ -20,11 +25,8 @@ class Detection extends BaseController
 
     public function getpicture($id){
         helper('path');
-        $db = db_connect();
-        $builder = $db->table('pictures');
-        $builder->select('path');
-        $query = $builder->getWhere(['id'=> $id])->getFirstRow();
-        $pic_path = $query->path;
+
+        $pic_path =$this->modell->getPicturePath($id);
 
         $filename = WRITEPATH.'uploads'.DIRECTORY_SEPARATOR.$pic_path;
         $handle = fopen($filename, "rb");
@@ -36,13 +38,7 @@ class Detection extends BaseController
     }
 
     public function getdetection($id){
-        $db = db_connect();
-        $builder = $db->table('hitboxes');
-        $builder->select('*');
-        $builder->join('pictures', 'pictures.id = hitboxes.id');
-        //$builder->getWhere(['id'=> $id]);
-        $result = $builder->getWhere(['pictures.id'=> $id])->getResult();
+        $result = $this->modell->getDetection($id);
         return json_encode($result);
-
     }
 }
