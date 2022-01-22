@@ -53,12 +53,25 @@ class Detection extends BaseController
         $this->modell->updateHitboxes($picid,$data);
 
         if($this->request->getVar('saveTrain')){
-
-
-
-
+            $newName = rand(10000000,99999999);
+            $path = $this->modell->getPicturePath($picid);
+            copy(WRITEPATH.'uploads'.DIRECTORY_SEPARATOR.$path,WRITEPATH.'uploads'.DIRECTORY_SEPARATOR.'out'.DIRECTORY_SEPARATOR.$newName.'.jpg');
+            $data = $this->createDarknetData($picid);
+            file_put_contents(WRITEPATH.'uploads'.DIRECTORY_SEPARATOR.'out'.DIRECTORY_SEPARATOR.$newName.'.txt',$data);
         }
 
+    }
+
+    public function createDarknetData($id){
+        $out = "";
+        $detection = $this->modell->getDetection($id);
+
+        foreach ($detection as $hb){
+            $x = $hb->x + ($hb->w / 2);
+            $y = $hb->y + ($hb->h / 2);
+            $out .= $hb->class.' '.$x.' '.$y.' '.$hb->w.' '.$hb->h."\n";
+        }
+        return $out;
     }
 
     public function createPDF($id){
