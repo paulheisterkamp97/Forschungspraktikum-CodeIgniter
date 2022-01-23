@@ -10,7 +10,7 @@
                 <?=  $errors->listErrors()?>
             </div>
         <?php endif; ?>
-        <form method="post" action="<?=base_url('store-image')?>;" enctype="multipart/form-data">
+        <form method="post" action="<?=base_url('store-image')?>" enctype="multipart/form-data">
             <div class="form-group mb-4">
                 <label for="image">Select Picture to upload</label>
                 <input type="file" class="form-control" id="image" accept="image/jpeg,image/png" name="image" size="33" />
