@@ -6,7 +6,7 @@
 
 
 writable/*/*
-!**.gitkeep
+
 !writable/*/index.html
 !*/cache/.htaccess
 
@@ -63,3 +63,6 @@ application/logs/*
 app/Helpers/python/script/venv/
 
 app/Helpers/python/config/yolov3-spp-custom-9c_best.weights
+
+!**.gitkeep
+.env
