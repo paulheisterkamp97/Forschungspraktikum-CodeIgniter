@@ -59,7 +59,7 @@ class ImageUpload extends BaseController {
             // Python trigger --------------------------------------------------
             chdir('..'.DIRECTORY_SEPARATOR.'app'.DIRECTORY_SEPARATOR.'Helpers'.DIRECTORY_SEPARATOR.'python'.DIRECTORY_SEPARATOR.'script');
             if (PHP_OS == "Linux"){
-                exec('venv/bin/python3 detect.py '.$pic_id);
+                exec('bash detect.sh '.$pic_id);
             }else{
                 exec('venv\Scripts\python detect.py '.$pic_id.' 2>&1');
             }
