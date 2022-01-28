@@ -6,9 +6,9 @@ import cv2
 import json
 import os
 from PIL import Image
-import mysql.connector
+import pymysql.cursors
 
-# Confidence für Box
+
 confthres = 0.5
 # Non maximum Suppression
 nmsthres = 0.3
@@ -36,17 +36,17 @@ def get_prediction(image, netz):
     ln = netz.getLayerNames()
     ln = [ln[i - 1] for i in netz.getUnconnectedOutLayers()]
 
-    # Bild für die Objekterkennung herunterskalieren
+    # Bild fuer die Objekterkennung herunterskalieren
     blob = cv2.dnn.blobFromImage(image, 1 / 255.0, (608, 608),
                                  swapRB=True, crop=False)
     netz.setInput(blob)
-    # Zeit für die Laufzeitanalyse messen
+    # Zeit fuer die Laufzeitanalyse messen
     start = time.time()
     layerOutputs = netz.forward(ln)
     print(layerOutputs)
     end = time.time()
 
-    # Ausgabe für Laufzeitanalyse
+    # Ausgabe fuer Laufzeitanalyse
     print("[INFO] YOLO took {:.6f} seconds".format(end - start))
     # Initialisierung
     boxes = []
@@ -69,12 +69,12 @@ def get_prediction(image, netz):
                 x = centerX - (width / 2)
                 y = centerY - (height / 2)
 
-                # Box der Ausgabe hinzufügen
+                # Box der Ausgabe hinzufuegen
                 boxes.append([x, y, width, height])
                 confidences.append(float(confidence))
                 classIDs.append(classID)
 
-    # Überlappungen vermeiden
+    # ueberlappungen vermeiden
     idxs = cv2.dnn.NMSBoxes(boxes, confidences, confthres,
                             nmsthres)
     out = []
@@ -98,12 +98,12 @@ def parse_args():
 
 if __name__ == '__main__':
     args = parse_args()
-    cnx = mysql.connector.connect(user='python',
-                                     host='127.0.0.1',
-                                     database='object_detection')
+    cnx = pymysql.connect(user='ci_connect_w',
+                                     host='sql643.your-server.de',
+                                     database='object_detection',
+                                     password='cT5Bs6HUtGv94M6Z')
     cursor = cnx.cursor()
-    query  = ("SELECT path FROM pictures "
-               f"WHERE id={args.imageId}")
+    query  = ("SELECT path FROM pictures WHERE id="+str(args.imageId))
 
     image_path = ""
     cursor.execute(query)
