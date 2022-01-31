@@ -8,10 +8,15 @@ import os
 from PIL import Image
 import pymysql.cursors
 
-
+#netconfig
 confthres = 0.5
-# Non maximum Suppression
 nmsthres = 0.3
+
+#database connection
+db_user = 'ci_connect_w'
+db_name = 'object_detection'
+db_adress = 'localhost'
+db_pass = None
 
 config_file = os.path.join('..','config','yolov3-spp-custom-9c.cfg')
 names_file = os.path.join('..','config','obj.names')
@@ -98,10 +103,11 @@ def parse_args():
 
 if __name__ == '__main__':
     args = parse_args()
-    cnx = pymysql.connect(user='ci_connect_w',
-                                     host='sql643.your-server.de',
-                                     database='object_detection',
-                                     password='cT5Bs6HUtGv94M6Z')
+
+    cnx = pymysql.connect(user=db_user,
+                                     host=db_adress,
+                                     database=db_name,
+                                     password=db_pass)
     cursor = cnx.cursor()
     query  = ("SELECT path FROM pictures WHERE id="+str(args.imageId))
 

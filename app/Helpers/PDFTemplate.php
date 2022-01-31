@@ -11,16 +11,15 @@ class PDFTemplate
 
     public function createPdf($rechnungs_posten)
     {
-        $rechnungs_nummer = "743";
         $rechnungs_datum = date("d.m.Y");
         $lieferdatum = date("d.m.Y");
-        $pdfAuthor = "PHP-Einfach.de";
-
+        $pdfAuthor = "Paul Heisterkamp";
+        $rechnungs_nummer = 1;
         $rechnungs_header = '
 <img src="logo.png">
-PHP-Einfach.de
-Nils Reimers
-www.php-einfach.de';
+Musterfirma
+Max Mustermann
+www.musterfirma.de';
 
         $rechnungs_empfaenger = 'Max Musterman
 Musterstraße 17
@@ -28,16 +27,16 @@ Musterstraße 17
 
         $rechnungs_footer = "Wir bitten um eine Begleichung der Rechnung innerhalb von 14 Tagen nach Erhalt. Bitte Überweisen Sie den vollständigen Betrag an:
  
-<b>Empfänger:</b> Meine Firma
+<b>Empfänger:</b> Musterfirma
 <b>IBAN</b>: DE85 745165 45214 12364
 <b>BIC</b>: C46X453AD";
 
 //Auflistung eurer verschiedenen Posten im Format [Produktbezeichnung, Menge, Einzelpreis]
 
 //Höhe eurer Umsatzsteuer. 0.19 für 19% Umsatzsteuer
-        $umsatzsteuer = 0.0;
+        $umsatzsteuer = 0.19;
 
-        $pdfName = "Rechnung_" . $rechnungs_nummer . ".pdf";
+        $pdfName = "Rechnung.pdf";
 
 
 //////////////////////////// Inhalt des PDFs als HTML-Code \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\

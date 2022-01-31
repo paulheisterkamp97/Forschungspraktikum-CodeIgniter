@@ -65,4 +65,5 @@ app/Helpers/python/script/venv/
 app/Helpers/python/config/yolov3-spp-custom-9c_best.weights
 
 !**.gitkeep
+
 .env

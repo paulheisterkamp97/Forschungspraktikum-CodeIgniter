@@ -4,7 +4,7 @@
     </h1>
 
     <div>
-        <h3>Select an image from your computer and upload it to the cloud</h3>
+        <h3 class="m-4">Select to upload and process</h3>
         <?php if (isset($errors)): ?>
             <div class="text-danger">
                 <?=  $errors->listErrors()?>
@@ -12,15 +12,15 @@
         <?php endif; ?>
         <form method="post" action="<?=base_url('store-image')?>" enctype="multipart/form-data">
             <div class="form-group mb-4">
-                <label for="image">Select Picture to upload</label>
-                <input type="file" class="form-control" id="image" accept="image/jpeg,image/png" name="image" size="33" />
+                <label class="form-label fs-5" for="image">Select Picture to upload</label>
+                <input type="file" class="form-control form-control-lg" id="image" accept="image/jpeg,image/png" name="image" size="33" />
             </div>
             <div class="form-group mb-4">
-                <label for="filename">Specify filename</label>
-                <input type="text" id="filename"  class="form-control" name="filename"/>
+                <label class="form-label fs-5" for="filename">Specify project name</label>
+                <input type="text" id="filename"  class="form-control form-control-lg" name="filename"/>
             </div>
             <div class="form-group mb-4">
-                <button type="submit" class="btn btn-primary" >Upload Image</button>
+                <button type="submit" class="btn-lg btn-primary" >Upload Image</button>
             </div>
         </form>
     </div>
