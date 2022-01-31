@@ -4,7 +4,6 @@
     </h1>
 
     <div>
-        <h3 class="m-4">Select to upload and process</h3>
         <?php if (isset($errors)): ?>
             <div class="text-danger">
                 <?=  $errors->listErrors()?>
