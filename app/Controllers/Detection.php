@@ -51,8 +51,7 @@ class Detection extends BaseController
         $data = $this->request->getVar('detection');
         $picid = $this->request->getVar('pictureId');
         $this->modell->updateHitboxes($picid,$data);
-
-        if($this->request->getVar('saveTrain')){
+        if($this->request->getVar('saveTrain')==='true'){
             $newName = rand(10000000,99999999);
             $path = $this->modell->getPicturePath($picid);
             copy(WRITEPATH.'uploads'.DIRECTORY_SEPARATOR.$path,WRITEPATH.'uploads'.DIRECTORY_SEPARATOR.'out'.DIRECTORY_SEPARATOR.$newName.'.jpg');
